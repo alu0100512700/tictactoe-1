@@ -1,0 +1,15 @@
+%table
+  %tr
+    %th RANKING TICTACTOE
+  %tr
+    %th username
+    %th won
+    %th lost
+  -@usuarios.each do |usuario|
+    %tr
+      %td
+        #{usuario.username}
+      %td
+        #{usuario.win}
+      %td
+        #{usuario.loose}
