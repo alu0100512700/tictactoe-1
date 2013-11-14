@@ -1,11 +1,13 @@
 require 'sinatra'
 require 'sass'
 require 'pp'
+require './usuario.rb'
+require 'haml'
 
 settings.port = ENV['PORT'] || 4567
 enable :sessions
-#use Rack::Session::Pool, :expire_after => 2592000
-#set :session_secret, 'super secret'
+use Rack::Session::Pool, :expire_after => 2592000
+set :session_secret, 'super secret'
 
 #configure :development, :test do
 #  set :sessions, :domain => 'example.com'
@@ -14,6 +16,16 @@ enable :sessions
 #configure :production do
 #  set :sessions, :domain => 'herokuapp.com'
 #end
+
+configure :development do
+	DataMapper.setup(:default, "sqlite3://#(Dir.pwd)/development.db")
+end
+
+configure :production do
+	DataMapper.setup(:default, ENV['DATABASE_URL'])
+end
+
+DataMapper.auto_upgrade!
 
 module TicTacToe
   HUMAN = CIRCLE = "circle" # human
