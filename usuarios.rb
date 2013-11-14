@@ -11,7 +11,7 @@ end
 
 DataMapper.finalize
 
-get '/usurios' do
+get '/usuarios' do
 	@usuarios = Usuario.all
-	haml :usurios
+	haml :usuarios
 end
