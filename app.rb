@@ -17,13 +17,13 @@ set :session_secret, 'super secret'
 #  set :sessions, :domain => 'herokuapp.com'
 #end
 
-#configure :development do
+configure :development do
 	DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
-#end
+end
 
-#configure :production do
-#	DataMapper.setup(:default, ENV['DATABASE_URL'])
-#end
+configure :production do
+	DataMapper.setup(:default, ENV['DATABASE_URL'])
+end
 p "ESTOY AQUI!"
 DataMapper.auto_upgrade!
 
