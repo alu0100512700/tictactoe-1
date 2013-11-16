@@ -7,6 +7,7 @@ class Usuario
 		property :username, String
 		property :win, Integer
 		property :loose, Integer
+		property :play, Integer
 end
 
 DataMapper.finalize

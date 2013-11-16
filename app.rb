@@ -154,7 +154,7 @@ get %r{^/([abc][123])?$} do |human|
       # computer = board.legal_moves.sample
       computer = smart_move
       redirect to ('/humanwins') if human_wins?
-      redirect to('/') unless computer
+      redirect to('/played') unless computer
       board[computer] = TicTacToe::CROSS
       puts "I played: #{computer}!"
       puts "Tablero:  #{board.inspect}"
@@ -168,25 +168,44 @@ get %r{^/([abc][123])?$} do |human|
   haml :game, :locals => { :b => board, :m => ''  }
 end
 
+get '/played' do
+  puts "/played session="
+  pp session
+  begin
+    if (session["usuario"] != nil)
+        un_usuario = Usuario.first(:username=>session["usuario"])
+        contador = un_usuario.play
+        contador = contador + 1
+        un_usuario.play = contador
+        un_usuario.save
+        pp un_usuario
+    end
+    redirect '/'
+  end
+end     
+
 get '/humanwins' do
   puts "/humanwins session="
   pp session
   begin
     m = if human_wins? then
-				if (session["usuario"] != nil)
-					un_usuario = Usuario.first(:username=>session["usuario"])
-					contador = un_usuario.win
-					contador = contador + 1
-					un_usuario.win = contador
-					un_usuario.save
-				  pp un_usuario
-				end
-          'Human wins'
-        else 
-          redirect '/'
-        end
+      if (session["usuario"] != nil)
+        un_usuario = Usuario.first(:username=>session["usuario"])
+	contador = un_usuario.win
+        contador1 = un_usuario.play
+	contador = contador + 1
+	contador1 = contador1 + 1
+	un_usuario.win = contador
+	un_usuario.play = contador1
+	un_usuario.save
+	pp un_usuario
+      end
+      'Human wins'
+    else 
+      redirect '/'
+    end
     haml :final, :locals => { :b => board, :m => m }
-  rescue
+    rescue
     redirect '/'
   end
 end
@@ -196,19 +215,22 @@ get '/computerwins' do
   pp session
   begin
     m = if computer_wins? then
-				if (session["usuario"] != nil)
-					un_usuario = Usuario.first(:username => session["usuario"])
-					contador = un_usuario.loose
-					contador = contador + 1
-					un_usuario.loose = contador
-					un_usuario.save
-				end
-          'Computer wins'
-        else 
-          redirect '/'
-        end
+      if (session["usuario"] != nil)
+        un_usuario = Usuario.first(:username => session["usuario"])
+	contador = un_usuario.loose
+	contador1 = un_usuario.play
+	contador = contador + 1
+	contador1 = contador1 + 1
+	un_usuario.loose = contador
+	un_usuario.play = contador1
+	un_usuario.save
+      end
+      'Computer wins'
+    else 
+      redirect '/'
+    end
     haml :final, :locals => { :b => board, :m => m }
-  rescue
+    rescue
     redirect '/'
   end
 end

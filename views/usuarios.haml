@@ -5,19 +5,23 @@
       %input{:type=>"text",:name=>"usuario[username]",:placeholder=>"usuario"}
       %input{:type=>"hidden",:name=>"usuario[win]",:value=>"0"}
       %input{:type=>"hidden",:name=>"usuario[loose]",:value=>"0"}
+      %input{:type=>"hidden",:name=>"usuario[play]",:value=>"0"}
       %input{:type=>"submit",:value=>"enviar"}
   -else
     %form{:action=>"/",:method=>"post"}
       Hola, #{usuario}
       %input{:type=>"hidden",:value=>"1",:name=>"logout"}
       %input{:type=>"submit",:value=>"logout"}
-%table
+
+
+%table{:style => "width: 400px; border-spacing: 0px; color: yellow; text-align: center;"}
   %tr
     %th RANKING TICTACTOE
   %tr
     %th username
     %th won
     %th lost
+    %th played
   -@usuarios.each do |usuario|
     %tr
       %td
@@ -26,3 +30,5 @@
         #{usuario.win}
       %td
         #{usuario.loose}
+      %td
+        #{usuario.play}
