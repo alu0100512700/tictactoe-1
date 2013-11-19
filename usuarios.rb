@@ -5,6 +5,7 @@ class Usuario
 	include DataMapper::Resource
 		property :id, Serial
 		property :username, String
+		property :password, String
 		property :win, Integer
 		property :loose, Integer
 		property :play, Integer

@@ -243,21 +243,39 @@ post '/' do
   else
     nick = params[:usuario]
     nick = nick["username"]
-    u = Usuario.first(:username => "#{nick}" )
+		passw = params[:usuario]
+		passw = passw["password"]
+		puts params[:usuario]
+    u = Usuario.first(:username => "#{nick}",:password => "#{passw}")
     if u == nil
+		  u2 = Usuario.first(:username => "#{nick}")
+			if (u2 == nil)
       usuario = Usuario.create(params[:usuario])
       usuario.save
-      Ejem = params[:usuario]
+     
+			Ejem = params[:usuario]
       pp params[:usuario]
       @usuario = Ejem["username"]
       p "ATENCION!!!!!!!!"
       pp @usuario
       session["usuario"] = @usuario
-    else
+     
+			else
       p "Ya existe un usuario con ese nick!"
       @usuario = nil
       session["usuario"] = nil
       session.clear
+
+			end
+    else
+ 		Ejem = params[:usuario]
+    pp params[:usuario]
+    @usuario = Ejem["username"]
+    p "ATENCION!!!!!!!!"
+    pp @usuario
+    session["usuario"] = @usuario
+
+
     end
   end
     redirect '/'
