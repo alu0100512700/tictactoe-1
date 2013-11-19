@@ -23,9 +23,11 @@ Posible fallo con gema Postgres al hacer bundle install.
 
 ###Para usar:
 
--Usar un navegador web y copiar en la barra de dirección:
- http://tictactoeull.herokuapp.com/
-
+- Usar un navegador web y copiar en la barra de dirección:
+		http://tictactoeull.herokuapp.com/
+- Si se desea usar en local usar(previamente descargado):
+		localhost:4567
+		
 --------------------------------------------------
 
 Autor: Jonathan Hernández Phungchinda
