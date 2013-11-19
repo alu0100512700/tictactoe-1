@@ -1,6 +1,8 @@
 .barra-superior
   -if (!usuario)
     %form{:action=>"/",:method=>"post"}
+      %a.brand{:href => "/"}
+        %u Volver
       Juegas como invitado elije un nombre para llevar tu ranking personal
       %input{:type=>"text",:name=>"usuario[username]",:placeholder=>"usuario"}
       %input{:type=>"hidden",:name=>"usuario[win]",:value=>"0"}
@@ -9,6 +11,8 @@
       %input{:type=>"submit",:value=>"enviar"}
   -else
     %form{:action=>"/",:method=>"post"}
+      %a.brand{:href => "/"}
+        %u Volver
       Hola, #{usuario}
       %input{:type=>"hidden",:value=>"1",:name=>"logout"}
       %input{:type=>"submit",:value=>"logout"}

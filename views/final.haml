@@ -1,4 +1,7 @@
 .barra-superior
+  %a.brand{:href => "/usuarios"}
+    %u Ranking
+
   -if (!usuario)
     %form{:action=>"/",:method=>"post"}
       Juegas como invitado elije un nombre para llevar tu ranking personal
